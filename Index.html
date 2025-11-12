@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Master Blog</title>
+<style>
+  /* Base */
+  body {
+    font-family: monospace;
+    background: #fff;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* Header + logo */
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    gap: 1rem;
+  }
+  .logo-placeholder {
+    width: 120px;
+    height: auto;
+    border: none;
+    display: block;
+  }
+
+  /* Profilbild in About Me CV */
+  .profile-image {
+    width: 120px;
+    height: auto;
+    display: block;
+  }
+
+  /* Nav */
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+  }
+  nav a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  /* Main layout */
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  section {
+    margin-bottom: 3rem;
+  }
+  section h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  /* hierarchy */
+  .subcategory, .format, .episode {
+    display: none;
+    margin-left: 1rem;
+  }
+  .subcategory h3, .format h4, .episode h5 {
+    margin: 0.5rem 0 0.25rem 0;
+    cursor: pointer;
+  }
+
+  /* episode text hidden by default */
+  article p {
+    display: none;
+    margin: 0.25rem 0 0.5rem 1.5rem;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 768px) {
+    nav ul { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <!-- Logo -->
+  <img src="assets/logo.png" alt="Master Logo" class="logo-placeholder">
+  <h1>Master Blog</h1>
+  <nav>
+    <ul>
+      <li><a onclick="showCategory('all')">All</a></li>
+      <li><a onclick="showCategory('blog')">Blog</a></li>
+      <li><a onclick="showCategory('podcast')">Podcast</a></li>
+      <li><a onclick="showCategory('youtube')">YouTube</a></li>
+      <li><a onclick="showCategory('references')">Referenzen</a></li>
+      <li><a onclick="showCategory('aboutme')">About Me</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- BLOG -->
+  <section id="blog-section" class="category">
+    <h2 onclick="toggleSection(this)">Blog</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Daily</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Inhalt für Daily, Episode 1. Kurze prägnante Notiz / Archivtext.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Inhalt für Daily, Episode 2. Kurze prägnante Notiz / Archivtext.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Beobachtungen</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Inhalt für Beobachtungen, Episode 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Inhalt für Beobachtungen, Episode 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PODCAST -->
+  <section id="podcast-section" class="category">
+    <h2 onclick="toggleSection(this)">Podcast</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Detrapped</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Detrapped — Episode 1 Zusammenfassung.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Detrapped — Episode 2 Zusammenfassung.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Entblendet</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Entblendet — Episode 1 Zusammenfassung.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Entblendet — Episode 2 Zusammenfassung.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">KopfKlar</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>KopfKlar — Episode 1 Notiz.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>KopfKlar — Episode 2 Notiz.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="youtube-section" class="category">
+    <h2 onclick="toggleSection(this)">YouTube</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Kurzvideos</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Kurzvideo — Episode 1: kurze Beschreibung / Timestamp.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Kurzvideo — Episode 2: kurze Beschreibung / Timestamp.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- REFERENZEN -->
+  <section id="references-section" class="category">
+    <h2 onclick="toggleSection(this)">Referenzen</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Axiome</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Axiome — Episode 1 Notiz.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Axiome — Episode 2 Notiz.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Assoziationen</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Assoziationen — Episode 1 Notiz.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Assoziationen — Episode 2 Notiz.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Analogien</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Analogien — Episode 1 Notiz.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Analogien — Episode 2 Notiz.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT ME -->
+  <section id="aboutme-section" class="category">
+    <h2 onclick="toggleSection(this)">About Me</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">CV</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Details</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Me</h5>
+            <p><img src="assets/profile.png" alt="Master Profile" class="logo-placeholder"></p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Other Info</h5>
+            <p>Weitere kurze Infos zu CV hier einfügen.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Other</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Details</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Miscellaneous</h5>
+            <p>Additional information, hobbies, interests, etc.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<script>
+/* Sections mapping: --- PRÄZISE: Kommas sind wichtig --- */
+function showCategory(category) {
+  const sections = {
+    'blog': document.getElementById('blog-section'),
+    'podcast': document.getElementById('podcast-section'),
+    'youtube': document.getElementById('youtube-section'),
+    'references': document.getElementById('references-section'),
+    'aboutme': document.getElementById('aboutme-section')
+  };
+
+  if (category === 'all') {
+    for (let key in sections) sections[key].style.display = 'block';
+  } else {
+    for (let key in sections) {
+      sections[key].style.display = (key === category) ? 'block' : 'none';
+    }
+  }
+}
+
+/* Toggle functions bleiben unverändert */
+function toggleSection(headerElem) {
+  const subcats = headerElem.parentElement.querySelectorAll('.subcategory');
+  subcats.forEach(sc => sc.style.display = (sc.style.display === 'block') ? 'none' : 'block');
+}
+
+function toggleSubcategory(subHeader) {
+  const format = subHeader.nextElementSibling;
+  if (!format) return;
+  format.style.display = (format.style.display === 'block') ? 'none' : 'block';
+}
+
+function toggleFormat(formatHeader) {
+  const episodes = formatHeader.nextElementSibling;
+  if (!episodes) return;
+  episodes.style.display = (episodes.style.display === 'block') ? 'none' : 'block';
+}
+
+function toggleEpisode(epHeader) {
+  const text = epHeader.nextElementSibling;
+  if (!text) return;
+  text.style.display = (text.style.display === 'block') ? 'none' : 'block';
+}
+
+/* Default: show all on load */
+showCategory('all');
+</script>
+
+</body>
+</html>
