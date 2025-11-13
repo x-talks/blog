@@ -62,34 +62,37 @@ window.addEventListener('scroll', () => {
     if (top < window.innerHeight - 50) el.style.opacity = 1;
   });
 });
+
 /* ---------------------------
    INTRO VIDEO MODAL
 ----------------------------*/
-
-// Video.js Player initialisieren
-var player = videojs('intro-video');
-
 document.addEventListener("DOMContentLoaded", () => {
-    const overlay = document.getElementById('intro-overlay');
-    const skipBtn = document.getElementById('skip-intro');
+  const overlay = document.getElementById('intro-overlay');
+  const skipBtn = document.getElementById('skip-intro');
 
-    if (overlay && skipBtn && player) {
-        // Skip-Button Event
-        skipBtn.addEventListener('click', () => {
-            player.pause();
-            overlay.classList.add('hidden');
-        });
+  // Video.js Player initialisieren
+  const player = videojs('intro-video');
 
-        // Video Ende Event
-        player.on('ended', () => {
-            overlay.classList.add('hidden');
-        });
-    }
+  if (overlay && skipBtn && player) {
+    // Skip-Button Event
+    skipBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+      player.pause();
+      player.dispose(); // Player sauber entfernen
+    });
 
-    // Optional: Sections Fade-In (falls gewünscht)
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach(el => el.style.opacity = 1);
+    // Video Ende Event
+    player.on('ended', () => {
+      overlay.style.display = 'none';
+      player.dispose(); // Player sauber entfernen
+    });
+  }
+
+  // Optional: Fade-In für Sections
+  const fadeElements = document.querySelectorAll('.fade-in');
+  fadeElements.forEach(el => el.style.opacity = 1);
 });
+
 
 /* ---------------------------
    DEFAULT: SHOW ALL SECTIONS
