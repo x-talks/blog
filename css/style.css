@@ -109,17 +109,19 @@ article p {
   align-items: center; 
   z-index: 9999; 
 }
-.overlay video { 
-  max-width: 80%; 
-  max-height: 80%; 
+
+.overlay video {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;       /* verhindert Verzerrung auf allen Geräten */
+  background-color: black;   /* verhindert leeren Hintergrund beim Laden */
 }
-.overlay button { 
-  position: absolute; 
-  top: 1rem; 
-  right: 1rem; 
-  padding: 0.5rem 1rem; 
-  cursor: pointer; 
-  font-family: monospace; 
+
+.overlay button {
+  z-index: 10000;            /* sicherstellen, dass Skip-Button über Video liegt */
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 4px;
 }
 
 /* Fade-in Effekt für Sections/Artikel */
