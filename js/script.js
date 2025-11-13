@@ -66,17 +66,19 @@ window.addEventListener('scroll', () => {
 /* ---------------------------
    INTRO VIDEO MODAL
 ----------------------------*/
-const overlay = document.getElementById('intro-overlay');
-const skipBtn = document.getElementById('skip-intro');
-const video = document.getElementById('intro-video');
+document.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById('intro-overlay');
+  const skipBtn = document.getElementById('skip-intro');
+  const video = document.getElementById('intro-video');
 
-if (overlay && skipBtn && video) {
-  skipBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';   // Overlay verschwindet
-    video.pause();                     // Video anhalten, falls noch läuft
-  });
-  video.addEventListener('ended', () => overlay.style.display = 'none');
-}
+  if (overlay && skipBtn && video) {
+    skipBtn.addEventListener('click', () => {
+      overlay.style.display = 'none';
+      video.pause();
+    });
+    video.addEventListener('ended', () => overlay.style.display = 'none');
+  }
+});
 
 /* ---------------------------
    DEFAULT: SHOW ALL SECTIONS
