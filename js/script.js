@@ -68,9 +68,13 @@ window.addEventListener('scroll', () => {
 ----------------------------*/
 const overlay = document.getElementById('intro-overlay');
 const skipBtn = document.getElementById('skip-intro');
-if (overlay && skipBtn) {
-  skipBtn.addEventListener('click', () => overlay.style.display = 'none');
-  const video = document.getElementById('intro-video');
+const video = document.getElementById('intro-video');
+
+if (overlay && skipBtn && video) {
+  skipBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';   // Overlay verschwindet
+    video.pause();                     // Video anhalten, falls noch läuft
+  });
   video.addEventListener('ended', () => overlay.style.display = 'none');
 }
 
