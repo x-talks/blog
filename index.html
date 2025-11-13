@@ -4,113 +4,26 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Master Blog</title>
-<style>
-   /* Under Construction Disclaimer */
-  .disclaimer {
-    position: fixed;      /* bleibt immer oben links */
-    top: 0.5rem;
-    left: 0.5rem;
-    font-size: 0.75rem;  /* sehr klein, unaufdringlich */
-    color: #fff;         /* weißer Text */
-    background-color: rgba(0,0,0,0.7);  /* halbtransparentes Schwarz */
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    z-index: 9999;        /* sicher über allem */
-    font-family: monospace; /* passend zu deinem Theme */
-  }
-  /* Base */
-  body {
-    font-family: monospace;
-    background: #fff;
-    color: #000;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-  }
-
-  /* Header + logo */
-  header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    border-bottom: 1px solid #ccc;
-    gap: 1rem;
-  }
-  .logo-placeholder {
-    width: 120px;
-    height: auto;
-    border: none;
-    display: block;
-  }
-
-  /* Profilbild in About Me CV */
-  .profile-image {
-    width: 120px;
-    height: auto;
-    display: block;
-  }
-
-  /* Nav */
-  nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    gap: 2rem;
-    margin: 0;
-  }
-  nav a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  /* Main layout */
-  main {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  }
-  section {
-    margin-bottom: 3rem;
-  }
-  section h2 {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    cursor: pointer;
-  }
-
-  /* hierarchy */
-  .subcategory, .format, .episode {
-    display: none;
-    margin-left: 1rem;
-  }
-  .subcategory h3, .format h4, .episode h5 {
-    margin: 0.5rem 0 0.25rem 0;
-    cursor: pointer;
-  }
-
-  /* episode text hidden by default */
-  article p {
-    display: none;
-    margin: 0.25rem 0 0.5rem 1.5rem;
-    white-space: pre-wrap;
-  }
-
-  @media (max-width: 768px) {
-    nav ul { flex-direction: column; gap: 1rem; }
-  }
-</style>
+   
+<!-- Externes CSS -->
+<link rel="stylesheet" href="css/style.css">
+   
 </head>
 <body>
 <!-- Under Construction Disclaimer -->
 <div class="disclaimer">
-  This website is under construction
+  <span class="disclaimer-label">Disclaimer:</span> This website is under construction
 </div>
-
+   
+<!-- Intro Video Overlay -->
+<div id="intro-overlay" class="overlay">
+  <video id="intro-video" autoplay muted>
+    <source src="assets/intro.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <button id="skip-intro">Skip</button>
+</div>
+   
 <header>
   <!-- Logo -->
   <img src="assets/logo.png" alt="Master Logo" class="logo-placeholder">
@@ -343,51 +256,8 @@
 </main>
 
 <script>
-/* Sections mapping: --- PRÄZISE: Kommas sind wichtig --- */
-function showCategory(category) {
-  const sections = {
-    'blog': document.getElementById('blog-section'),
-    'podcast': document.getElementById('podcast-section'),
-    'youtube': document.getElementById('youtube-section'),
-    'references': document.getElementById('references-section'),
-    'aboutme': document.getElementById('aboutme-section')
-  };
-
-  if (category === 'all') {
-    for (let key in sections) sections[key].style.display = 'block';
-  } else {
-    for (let key in sections) {
-      sections[key].style.display = (key === category) ? 'block' : 'none';
-    }
-  }
-}
-
-/* Toggle functions bleiben unverändert */
-function toggleSection(headerElem) {
-  const subcats = headerElem.parentElement.querySelectorAll('.subcategory');
-  subcats.forEach(sc => sc.style.display = (sc.style.display === 'block') ? 'none' : 'block');
-}
-
-function toggleSubcategory(subHeader) {
-  const format = subHeader.nextElementSibling;
-  if (!format) return;
-  format.style.display = (format.style.display === 'block') ? 'none' : 'block';
-}
-
-function toggleFormat(formatHeader) {
-  const episodes = formatHeader.nextElementSibling;
-  if (!episodes) return;
-  episodes.style.display = (episodes.style.display === 'block') ? 'none' : 'block';
-}
-
-function toggleEpisode(epHeader) {
-  const text = epHeader.nextElementSibling;
-  if (!text) return;
-  text.style.display = (text.style.display === 'block') ? 'none' : 'block';
-}
-
-/* Default: show all on load */
-showCategory('all');
+     <!-- Externes JavaScript -->
+     src="js/script.js"></script>
 </script>
 
 </body>
