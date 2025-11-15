@@ -11,34 +11,177 @@
 <link href="https://vjs.zencdn.net/7.24.0/video-js.css" rel="stylesheet" />
 
 </head>
-<body>
 
-<!-- Under Construction Disclaimer -->
-<div class="disclaimer">
-  <span class="disclaimer-label">Disclaimer:</span> This website is under construction
+<body class="intro-active">
+
+<!-- INTRO VIDEO -->
+<div id="intro-container">
+  <video id="intro-video" playsinline>
+    <source src="resource/intro.mp4" type="video/mp4">
+  </video>
+  <button id="skip-intro">Skip</button>
 </div>
 
-
-
 <header>
-  <img src="resources/images/logo.png" alt="Master Logo" class="logo-placeholder">
+  <img src="resource/logo.png" alt="Master Logo" class="logo-placeholder">
   <h1>Master Blog</h1>
+
   <nav>
     <ul>
-      <li><a onclick="showCategory('all')">All</a></li>
       <li><a onclick="showCategory('blog')">Blog</a></li>
       <li><a onclick="showCategory('podcast')">Podcast</a></li>
       <li><a onclick="showCategory('youtube')">YouTube</a></li>
       <li><a onclick="showCategory('references')">Referenzen</a></li>
       <li><a onclick="showCategory('aboutme')">About Me</a></li>
+      <li><a onclick="showCategory('all')">All</a></li>
     </ul>
   </nav>
 </header>
 
 <main>
-  <!-- Hier kommt dein bisheriger Content unverändert -->
-</main>
+  <!-- BLOG -->
+  <section id="blog-section" class="category">
+    <h2 onclick="toggleSection(this)">Blog</h2>
 
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Daily</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Inhalt für Daily, Episode 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Inhalt für Daily, Episode 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Beobachtungen</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Inhalt für Beobachtungen, Episode 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Inhalt für Beobachtungen, Episode 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCAST -->
+  <section id="podcast-section" class="category">
+    <h2 onclick="toggleSection(this)">Podcast</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Detrapped</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Detrapped — Episode 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Detrapped — Episode 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Entblendet</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Entblendet — Episode 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Entblendet — Episode 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- YOUTUBE -->
+  <section id="youtube-section" class="category">
+    <h2 onclick="toggleSection(this)">YouTube</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Kurzvideos</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Kurzvideo 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Kurzvideo 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <section id="references-section" class="category">
+    <h2 onclick="toggleSection(this)">Referenzen</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">Axiome</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Episoden</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 1</h5>
+            <p>Axiom 1.</p>
+          </article>
+          <article>
+            <h5 onclick="toggleEpisode(this)">Episode 2</h5>
+            <p>Axiom 2.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ABOUT ME -->
+  <section id="aboutme-section" class="category">
+    <h2 onclick="toggleSection(this)">About Me</h2>
+
+    <div class="subcategory">
+      <h3 onclick="toggleSubcategory(this)">CV</h3>
+      <div class="format">
+        <h4 onclick="toggleFormat(this)">Details</h4>
+        <div class="episode">
+          <article>
+            <h5 onclick="toggleEpisode(this)">Me</h5>
+            <p><img src="resource/profile.png" alt="Master Profile" class="profile-image"></p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 <!-- Video.js JS -->
 <script src="https://vjs.zencdn.net/7.24.0/video.min.js"></script>
 <!-- Externes JS -->
