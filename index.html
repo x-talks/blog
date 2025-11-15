@@ -1,15 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Master Blog</title>
 
-<!-- Externes CSS -->
-<link rel="stylesheet" href="css/style.css">
-<!-- Video.js CSS -->
-<link href="https://vjs.zencdn.net/7.24.0/video-js.css" rel="stylesheet" />
+<style>
+  /* Base */
+  body {
+    font-family: monospace;
+    background: #fff;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
 
+  /* Header */
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    gap: 1rem;
+  }
+
+  .logo-placeholder {
+    width: 120px;
+  }
+
+  .profile-image {
+    width: 120px;
+  }
+
+  /* Nav */
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  /* Main layout */
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  section h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  .subcategory,
+  .format,
+  .episode {
+    display: none;
+    margin-left: 1rem;
+  }
+
+  article p {
+    display: none;
+    margin: 0.25rem 0 0.5rem 1.5rem;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 768px) {
+    nav ul {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  /* Intro overlay */
+  body.intro-active main,
+  body.intro-active header,
+  body.intro-active nav {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  body:not(.intro-active) main,
+  body:not(.intro-active) header,
+  body:not(.intro-active) nav {
+    opacity: 1;
+  }
+
+  #intro-container {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+  }
+
+  #intro-container.hide-animation {
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateX(-40%);
+    pointer-events: none;
+  }
+
+  #intro-video {
+    object-fit: contain;
+    background: #000;
+    max-width: 100%;
+    max-height: 100vh;
+  }
+
+  #skip-intro {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 6px;
+    font-family: monospace;
+    cursor: pointer;
+  }
+</style>
 </head>
 
 <body class="intro-active">
@@ -182,13 +313,73 @@
   </section>
 
 </main>
-<!-- Video.js JS -->
-<script src="https://vjs.zencdn.net/7.24.0/video.min.js"></script>
-<!-- Externes JS -->
-<script src="js/script.js"></script>
 
-<!-- Intro Video JS -->
-<script src="js/script.js"></script>
+<script>
+function showCategory(category) {
+  const sections = {
+    blog: document.getElementById('blog-section'),
+    podcast: document.getElementById('podcast-section'),
+    youtube: document.getElementById('youtube-section'),
+    references: document.getElementById('references-section'),
+    aboutme: document.getElementById('aboutme-section')
+  };
+
+  if (category === 'all') {
+    for (const key in sections) sections[key].style.display = 'block';
+  } else {
+    for (const key in sections)
+      sections[key].style.display = key === category ? 'block' : 'none';
+  }
+}
+
+function toggleSection(h) {
+  h.parentElement.querySelectorAll('.subcategory')
+    .forEach(el => el.style.display = el.style.display === 'block' ? 'none' : 'block');
+}
+function toggleSubcategory(h) {
+  const f = h.nextElementSibling;
+  if (f) f.style.display = f.style.display === 'block' ? 'none' : 'block';
+}
+function toggleFormat(h) {
+  const e = h.nextElementSibling;
+  if (e) e.style.display = e.style.display === 'block' ? 'none' : 'block';
+}
+function toggleEpisode(h) {
+  const p = h.nextElementSibling;
+  if (p) p.style.display = p.style.display === 'block' ? 'none' : 'block';
+}
+
+showCategory('all');
+
+
+<!-- INTRO JS -->
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("intro-container");
+  const video = document.getElementById("intro-video");
+  const skip = document.getElementById("skip-intro");
+
+  function hideIntro() {
+    container.classList.add("hide-animation");
+    document.body.classList.remove("intro-active");
+
+    setTimeout(() => {
+      container.style.display = "none";
+    }, 600);
+  }
+
+  // Video START / PAUSE per Klick
+  video.addEventListener("click", () => {
+    if (video.paused) video.play();
+    else video.pause();
+  });
+
+  // Video Ende → Intro ausblenden
+  video.addEventListener("ended", hideIntro);
+
+  // Skip → Intro ausblenden
+  skip.addEventListener("click", hideIntro);
+});
+</script>
 
 </body>
 </html>
