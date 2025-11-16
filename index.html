@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,13 +26,8 @@
     gap: 1rem;
   }
 
-  .logo-placeholder {
-    width: 120px;
-  }
-
-  .profile-image {
-    width: 120px;
-  }
+  .logo-placeholder { width: 120px; }
+  .profile-image { width: 120px; }
 
   /* Nav */
   nav ul {
@@ -58,10 +52,7 @@
     padding: 0 1rem;
   }
 
-  section {
-    margin-bottom: 3rem;
-  }
-
+  section { margin-bottom: 3rem; }
   section h2 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.5rem;
@@ -69,40 +60,14 @@
     cursor: pointer;
   }
 
-  .subcategory,
-  .format,
-  .episode {
-    display: none;
-    margin-left: 1rem;
-  }
-
-  article p {
-    display: none;
-    margin: 0.25rem 0 0.5rem 1.5rem;
-    white-space: pre-wrap;
-  }
+  .subcategory, .format, .episode { display: none; margin-left: 1rem; }
+  article p { display: none; margin: 0.25rem 0 0.5rem 1.5rem; white-space: pre-wrap; }
 
   @media (max-width: 768px) {
-    nav ul {
-      flex-direction: column;
-      gap: 1rem;
-    }
+    nav ul { flex-direction: column; gap: 1rem; }
   }
 
-  /* Intro overlay */
-  body.intro-active main,
-  body.intro-active header,
-  body.intro-active nav {
-    opacity: 0;
-    transition: opacity 0.6s ease;
-  }
-
-  body:not(.intro-active) main,
-  body:not(.intro-active) header,
-  body:not(.intro-active) nav {
-    opacity: 1;
-  }
-
+  /* Intro overlay + Blur thumbnail */
   #intro-container {
     position: fixed;
     inset: 0;
@@ -112,6 +77,7 @@
     justify-content: center;
     z-index: 9999;
     transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+    overflow: hidden;
   }
 
   #intro-container.hide-animation {
@@ -121,11 +87,15 @@
     pointer-events: none;
   }
 
-  #intro-video {
-    object-fit: contain;
-    background: #000;
-    max-width: 100%;
-    max-height: 100vh;
+  #intro-thumbnail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(10px);
+    transition: opacity 0.5s ease;
+    cursor: pointer;
   }
 
   #skip-intro {
@@ -139,6 +109,7 @@
     border-radius: 6px;
     font-family: monospace;
     cursor: pointer;
+    z-index: 10;
   }
 </style>
 </head>
@@ -147,9 +118,10 @@
 
 <!-- INTRO VIDEO -->
 <div id="intro-container">
-  <video id="intro-video" playsinline>
-    <source src="resource/video/intro.mp4" type="video/mp4">
-  </video>
+  <!-- Skeletal Loader / Blur-Up -->
+  <img id="intro-thumbnail" src="resource/image/intro-thumb.jpg" alt="Intro Thumbnail" />
+
+  <!-- Skip Button -->
   <button id="skip-intro">Skip</button>
 </div>
 
@@ -305,7 +277,7 @@
         <div class="episode">
           <article>
             <h5 onclick="toggleEpisode(this)">Me</h5>
-            <p><img src="resource/profile.png" alt="Master Profile" class="profile-image"></p>
+            <p><img src="resource/image/profile.png" alt="Master Profile" class="profile-image"></p>
           </article>
         </div>
       </div>
@@ -315,6 +287,7 @@
 </main>
 
 <script>
+/* Category Toggle */
 function showCategory(category) {
   const sections = {
     blog: document.getElementById('blog-section'),
@@ -323,7 +296,6 @@ function showCategory(category) {
     references: document.getElementById('references-section'),
     aboutme: document.getElementById('aboutme-section')
   };
-
   if (category === 'all') {
     for (const key in sections) sections[key].style.display = 'block';
   } else {
@@ -331,52 +303,49 @@ function showCategory(category) {
       sections[key].style.display = key === category ? 'block' : 'none';
   }
 }
-
-function toggleSection(h) {
-  h.parentElement.querySelectorAll('.subcategory')
-    .forEach(el => el.style.display = el.style.display === 'block' ? 'none' : 'block');
-}
-function toggleSubcategory(h) {
-  const f = h.nextElementSibling;
-  if (f) f.style.display = f.style.display === 'block' ? 'none' : 'block';
-}
-function toggleFormat(h) {
-  const e = h.nextElementSibling;
-  if (e) e.style.display = e.style.display === 'block' ? 'none' : 'block';
-}
-function toggleEpisode(h) {
-  const p = h.nextElementSibling;
-  if (p) p.style.display = p.style.display === 'block' ? 'none' : 'block';
-}
+function toggleSection(h) { h.parentElement.querySelectorAll('.subcategory').forEach(el => el.style.display = el.style.display === 'block' ? 'none' : 'block'); }
+function toggleSubcategory(h) { const f = h.nextElementSibling; if(f) f.style.display = f.style.display === 'block' ? 'none' : 'block'; }
+function toggleFormat(h) { const e = h.nextElementSibling; if(e) e.style.display = e.style.display === 'block' ? 'none' : 'block'; }
+function toggleEpisode(h) { const p = h.nextElementSibling; if(p) p.style.display = p.style.display === 'block' ? 'none' : 'block'; }
 
 showCategory('all');
 
-
-<!-- INTRO JS -->
+/* INTRO VIDEO + Skeletal Loader + Lazy-Load */
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("intro-container");
-  const video = document.getElementById("intro-video");
   const skip = document.getElementById("skip-intro");
+  const thumbnail = document.getElementById("intro-thumbnail");
+  let videoLoaded = false;
 
   function hideIntro() {
     container.classList.add("hide-animation");
     document.body.classList.remove("intro-active");
-
-    setTimeout(() => {
-      container.style.display = "none";
-    }, 600);
+    setTimeout(() => { container.style.display = "none"; }, 600);
   }
 
-  // Video START / PAUSE per Klick
-  video.addEventListener("click", () => {
-    if (video.paused) video.play();
-    else video.pause();
+  thumbnail.addEventListener("click", () => {
+    if(!videoLoaded) {
+      const video = document.createElement("video");
+      video.src = "resource/video/intro.mp4";
+      video.autoplay = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.id = "intro-video";
+      video.style.maxWidth = "100%";
+      video.style.maxHeight = "100vh";
+      container.appendChild(video);
+
+      video.addEventListener("ended", hideIntro);
+      video.addEventListener("click", () => {
+        if(video.paused) video.play();
+        else video.pause();
+      });
+
+      videoLoaded = true;
+    }
+    thumbnail.style.opacity = 0;
   });
 
-  // Video Ende → Intro ausblenden
-  video.addEventListener("ended", hideIntro);
-
-  // Skip → Intro ausblenden
   skip.addEventListener("click", hideIntro);
 });
 </script>
